@@ -16,17 +16,9 @@ var animStates = {};
     }
 
     function truckIcon(color) {
-        var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32" width="48" height="24">' +
-            '<rect x="2" y="8" width="36" height="18" rx="3" fill="' + color + '" stroke="white" stroke-width="1.5"/>' +
-            '<rect x="38" y="13" width="18" height="13" rx="2" fill="' + color + '" stroke="white" stroke-width="1.5"/>' +
-            '<rect x="40" y="15" width="12" height="7" rx="1" fill="rgba(255,255,255,0.5)"/>' +
-            '<circle cx="12" cy="28" r="4" fill="#222" stroke="white" stroke-width="1.5"/>' +
-            '<circle cx="44" cy="28" r="4" fill="#222" stroke="white" stroke-width="1.5"/>' +
-            '<circle cx="54" cy="28" r="4" fill="#222" stroke="white" stroke-width="1.5"/>' +
-            '</svg>';
         return L.divIcon({
-            html: '<div class="truck-marker" style="transform-origin:center center;">' + svg + '</div>',
-            iconSize: [48, 24], iconAnchor: [24, 12], className: ''
+            html: '<div class="truck-marker" style="font-size:26px;line-height:1;">\\uD83D\\uDE9B</div>',
+            iconSize: [30, 30], iconAnchor: [15, 15], className: ''
         });
     }
 
@@ -132,12 +124,6 @@ var animStates = {};
             var from = route.coords[state.segIdx];
             var to = route.coords[state.segIdx + 1];
             var pos = lerp(from, to, state.t);
-
-            var el = state.marker.getElement();
-            if (el) {
-                var inner = el.querySelector('.truck-marker');
-                if (inner) inner.style.transform = 'rotate(' + bearing(from.lat, from.lng, to.lat, to.lng) + 'deg)';
-            }
 
             state.marker.setLatLng([pos.lat, pos.lng]);
             updateInfoPanel(from);
