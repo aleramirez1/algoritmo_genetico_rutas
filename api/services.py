@@ -6,8 +6,8 @@ from fastapi import HTTPException
 from ag_params import AGParams
 from optimizer import optimize_route, default_base
 from map_builder import build_route_map
-from ..config import state
-from ..schemas import OptimizarRequest
+from config import state
+from schemas import OptimizarRequest
 
 
 def _params_from_request(p) -> AGParams:

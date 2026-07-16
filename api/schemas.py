@@ -43,3 +43,10 @@ class OptimizarRequest(BaseModel):
     bloqueos: List[Bloqueo] = []
     radio_bloqueo: float = Field(25.0, gt=0)
     params_ag: ParamsAG = ParamsAG()
+
+
+class HealthResponse(BaseModel):
+    status: str
+    grafo_cargado: bool
+    nodos: int
+    aristas: int

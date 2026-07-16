@@ -2,9 +2,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from .config import settings, state
-from .middleware import setup_cors
-from .controllers import health_router, route_router
+from config import settings, state
+from cors import setup_cors
+from controllers import router
 
 
 @asynccontextmanager
@@ -22,8 +22,7 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     setup_cors(app)
-    app.include_router(health_router)
-    app.include_router(route_router)
+    app.include_router(router)
     return app
 
 
