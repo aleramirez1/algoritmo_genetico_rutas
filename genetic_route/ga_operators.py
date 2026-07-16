@@ -51,3 +51,24 @@ def roulette_selection(ranked, elite_size, pop_size):
     indices = np.random.choice(len(pool), size=n_select, replace=True, p=probs)
     selected += [pool[i] for i in indices]
     return selected
+
+
+def two_opt(individual, dist_matrix, start_idx, end_idx, blocked_penalty):
+    def leg(a, b):
+        d = dist_matrix[a][b]
+        return blocked_penalty if d == float("inf") else d
+
+    route = [start_idx] + list(individual) + [end_idx]
+    improved = True
+    while improved:
+        improved = False
+        for i in range(1, len(route) - 2):
+            for j in range(i + 1, len(route) - 1):
+                a, b = route[i - 1], route[i]
+                c, d = route[j], route[j + 1]
+                before = leg(a, b) + leg(c, d)
+                after = leg(a, c) + leg(b, d)
+                if after < before - 1e-9:
+                    route[i:j + 1] = reversed(route[i:j + 1])
+                    improved = True
+    return route[1:-1]

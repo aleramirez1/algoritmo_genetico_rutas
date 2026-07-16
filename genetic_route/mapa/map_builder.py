@@ -33,7 +33,6 @@ def build_route_map(decoded_routes, output_path="ruta_resultado.html", blockages
     add_instructions_panel(m, decoded_routes)
     add_truck_animation(m, decoded_routes)
 
-    folium.LayerControl(collapsed=False).add_to(m)
     m.save(output_path)
     print(f"[Mapa] Guardado en: {output_path}")
     return output_path

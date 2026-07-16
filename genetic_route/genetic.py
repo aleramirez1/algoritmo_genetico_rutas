@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 from ag_params import AGParams
-from ga_operators import order_crossover, mutate, roulette_selection
+from ga_operators import order_crossover, mutate, roulette_selection, two_opt
 
 
 class GeneticTSP:
@@ -40,6 +40,11 @@ class GeneticTSP:
         ranked = [(self._fitness(ind), ind) for ind in population]
         ranked.sort(key=lambda x: x[0])
         return ranked
+
+    def _local_search(self, individual):
+        if len(individual) < 2:
+            return individual
+        return two_opt(individual, self.dist_matrix, 0, self.n_points - 1, self.blocked_penalty)
 
     def _breed(self, selected):
         children = selected[:self.elite_size]
@@ -79,6 +84,13 @@ class GeneticTSP:
         for gen in range(self.params.generations):
             ranked = self._rank(population)
             best_dist, best_ind = ranked[0]
+
+            improved_ind = self._local_search(best_ind)
+            improved_dist = self._fitness(improved_ind)
+            if improved_dist < best_dist:
+                best_dist, best_ind = improved_dist, improved_ind
+                population[population.index(ranked[0][1])] = improved_ind
+
             history.append(best_dist)
 
             if best_dist < best_overall - self.params.min_improvement:
@@ -100,6 +112,11 @@ class GeneticTSP:
         best_dist, best_ind = ranked[0]
         if best_overall < best_dist and best_overall_ind is not None:
             best_dist, best_ind = best_overall, best_overall_ind
+
+        final_ind = self._local_search(best_ind)
+        final_dist = self._fitness(final_ind)
+        if final_dist < best_dist:
+            best_dist, best_ind = final_dist, final_ind
 
         best_route = [0] + best_ind + [self.n_points - 1]
         if verbose:

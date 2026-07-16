@@ -22,18 +22,10 @@ def _route_header(route, color):
             f"<span style='color:#666;'>Distancia total: {route.get('distancia_total_km', 0)} km</span></div>")
 
 
-def _segment_block(seg, color, start_num):
-    html = (f"<div style='margin:4px 8px; padding:6px 8px; background:#e9ecef; border-radius:4px;'>"
-            f"<b style='color:#264653;'>{seg['de']}</b><br>"
-            f"<small style='color:#888;'>a: {seg['a']} ({seg['distancia_m']} m)</small></div>")
-    num = start_num
-    for paso in seg.get("pasos", []):
-        html += (f"<div style='margin:2px 16px; padding:4px 6px; border-left:2px solid {color};'>"
-                 f"<span style='font-size:11px;'>{num}. {paso['instruccion']}<br>"
-                 f"<b>{paso['calle']}</b><span style='color:#888;'> - {paso['direccion']} "
-                 f"- {paso['distancia_m']} m</span></span></div>")
-        num += 1
-    return html, num
+def _step_row(num, paso, color):
+    return (f"<div style='margin:2px 8px; padding:5px 8px; border-left:3px solid {color};'>"
+            f"<span style='font-size:12px;'>{num}. <b>{paso['calle']}</b> "
+            f"<span style='color:#888;'>({paso['distancia_m']} m)</span></span></div>")
 
 
 def add_instructions_panel(m, decoded_routes):
@@ -43,7 +35,8 @@ def add_instructions_panel(m, decoded_routes):
         html += _route_header(route, color)
         num = 1
         for seg in route.get("segmentos", []):
-            block, num = _segment_block(seg, color, num)
-            html += block
+            for paso in seg.get("pasos", []):
+                html += _step_row(num, paso, color)
+                num += 1
     html += "</div>"
     m.get_root().html.add_child(folium.Element(html))
