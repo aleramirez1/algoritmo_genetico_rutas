@@ -22,7 +22,7 @@ class Bloqueo(BaseModel):
     lng: float = Field(..., ge=-180, le=180)
     reporte: Optional[str] = "Calle bloqueada"
 
-
+c
 class ParamsAG(BaseModel):
     poblacion: int = Field(150, ge=2)
     generaciones: int = Field(500, ge=1)

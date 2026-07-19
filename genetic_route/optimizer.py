@@ -58,7 +58,7 @@ def optimize_route(base_graph, osm_nodes, points, base_inicio, base_fin, params,
     ag = GeneticTSP(dist_matrix, params)
     best_route, best_dist, history = ag.run(verbose=verbose)
 
-    decoded = decode_full_route(
+    decoded = decode_full_route  (
         graph, osm_nodes, best_route, all_nodes, kept_points, base_inicio, base_fin, zona, turno
     )
     decoded["puntos_inaccesibles"] = unreachable
