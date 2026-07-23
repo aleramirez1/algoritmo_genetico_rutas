@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
 from config import settings, state
 from cors import setup_cors
 from controllers import router

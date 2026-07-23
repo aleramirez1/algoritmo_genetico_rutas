@@ -8,7 +8,7 @@ class Settings:
         self.osm_path = os.environ.get("OSM_PATH", "suchiapa.json")
         self.cors_origins = os.environ.get("CORS_ORIGINS", "*").strip()
         self.title = "Optimizador de Rutas de Recoleccion"
-        self.description = "AG + Dijkstra sobre grafo OSM de Suchiapa"
+        self.description = "AG + Dijkstra sobre grafo OSM que es de Suchiapa"
         self.version = "1.0.0"
 
     def resolve_osm_path(self, base_dir):

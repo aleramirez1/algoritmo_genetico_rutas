@@ -61,6 +61,7 @@ def build_response(decoded: dict) -> dict:
         "convergencia": decoded.get("convergencia", {}),
         "puntos_inaccesibles": decoded.get("puntos_inaccesibles", []),
         "segmentos": decoded["segmentos"],
+        "todas_las_coords": decoded.get("todas_las_coords", []),
     }
 
 
