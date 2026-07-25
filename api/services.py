@@ -27,7 +27,7 @@ def _params_from_request(p) -> AGParams:
 
 def run_optimization(req: OptimizarRequest) -> dict:
     if not state.ready:
-        raise HTTPException(status_code=503, detail="El grafo aun no esta cargado")
+        raise HTTPException(status_code=503, detail="El grafo aun no esta cargado.")
 
     points = [p.model_dump() for p in req.puntos]
     base_inicio = req.base_inicio.model_dump() if req.base_inicio else default_base(state.nodes)
@@ -49,7 +49,7 @@ def run_optimization(req: OptimizarRequest) -> dict:
             verbose=False,
         )
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Error al optimizar: {exc}")
+        raise HTTPException(status_code=500, detail=f"Error en optimizacion: {exc}")
 
 
 def build_response(decoded: dict) -> dict:

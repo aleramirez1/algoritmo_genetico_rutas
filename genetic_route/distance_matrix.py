@@ -8,7 +8,7 @@ def build_distance_matrix(node_ids, graph):
     np.fill_diagonal(matrix, 0)
     node_to_idx = {nid: i for i, nid in enumerate(node_ids)}
 
-    print(f"[Matriz] Calculando distancias para {n} nodos con Dijkstra...")
+    print(f"[Matriz] Calculando distancias para {n} nodos con Dijkstra")
 
     for i, src in enumerate(node_ids):
         try:

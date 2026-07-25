@@ -30,6 +30,7 @@ class ParamsAG(BaseModel):
     cruce: float = Field(0.9, ge=0.0, le=1.0)
     elite: int = Field(20, ge=1)
     tipo_mutacion: str = Field("swap", pattern="^(swap|inversion)$")
+
     patience: int = Field(0, ge=0)
     mejora_minima: float = Field(1.0, ge=0.0)
     semilla: Optional[int] = None

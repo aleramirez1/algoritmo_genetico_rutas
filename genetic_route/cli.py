@@ -103,12 +103,12 @@ def _process_route(route_data, graph, osm_nodes, base_inicio, base_fin, params):
 def run():
     args = parse_args()
 
-    print(f"\n[Cargando] Grafo OSM desde {args.osm}...")
+    print(f"\n[Cargando] Grafo OSM desde {args.osm}")
     graph, osm_nodes = load_osm_graph(args.osm)
 
     blockages = []
     if args.bloqueos:
-        print(f"\n[Bloqueos] Cargando bloqueos desde {args.bloqueos}...")
+        print(f"\n[Bloqueos] Cargando bloqueos desde {args.bloqueos}")
         blockages = load_blockages(args.bloqueos)
         apply_blockages(graph, osm_nodes, blockages, radius_m=args.radio_bloqueo)
 
@@ -126,6 +126,6 @@ def run():
         for path in args.ruta
     ]
 
-    print(f"\n[Mapa] Generando mapa interactivo...")
+    print(f"\n[Mapa] Generando mapa interactivo")
     output_path = build_route_map(decoded_routes, output_path=args.output, blockages=blockages)
     print(f"\nListo. Abre el archivo en tu navegador: {output_path}")
