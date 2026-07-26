@@ -1,11 +1,15 @@
 import os
 
+from dotenv import load_dotenv
 from osm_graph import load_osm_graph
+
+# Carga el .env desde la raíz del proyecto
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 
 class Settings:
     def __init__(self):
-        self.osm_path = os.environ.get("OSM_PATH", "suchiapa.json")
+        self.osm_path = os.environ.get("CITY_JSON", "suchiapa.json")
         self.cors_origins = os.environ.get("CORS_ORIGINS", "*").strip()
         self.title = "Optimizador de Rutas de Recoleccion"
         self.description = "AG + Dijkstra sobre grafo OSM de Suchiapa"
