@@ -17,7 +17,8 @@ if __name__ == "__main__":
     ssl_cert = os.environ.get("SSL_CERT")
     ssl_key = os.environ.get("SSL_KEY")
 
-    kwargs = {"host": "0.0.0.0", "port": 8003}
+    port = int(os.environ.get("PORT", 8003))
+    kwargs = {"host": "0.0.0.0", "port": port}
 
     if ssl_cert and ssl_key:
         kwargs["ssl_certfile"] = ssl_cert
